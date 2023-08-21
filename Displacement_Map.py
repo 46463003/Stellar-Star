@@ -4,16 +4,18 @@
 #----------- import libraries -----------
 import bpy  # for interacting with the viewport using Python's code
 import os   # for interacting with the operating system
+import Import_Images
 
 
 #----------- variable declaration -----------
 # !!!IMPORTANT: CHANGE THE FILE PATH TO THE IMAGE BEFORE RUNNING THE CODES
 # MAKE SURE THE FOLDER IS SEPARATED BY A DOUBLE BACKLASH (\\) INSTEAD OF A SINGLE ONE (\)
-file_path = "C:\\Course Materials\\COMP3850\\Blender\\Sample Images\\3. NGC 3324 - Carina Nebula @ w = 6248.tiff"
-pixel_length = 4944 #horizontal count of pixels
-pixel_width = 3824 # vertical count of pixels
+images = Import_Images.import_images() #import all images from the sample files
+size = Import_Images.get_image_size()
+pixel_length = size[0][0] #horizontal count of pixels
+pixel_width = size[0][1] # vertical count of pixels
 z_scale = 1 # scale of the z axis
-
+print(pixel_length, pixel_width)
 
 #----------- remove all existing objects in the 3D viewport -----------
 for obj in bpy.data.objects:
@@ -41,7 +43,7 @@ grid.scale = (pixel_length/1000, pixel_width/1000, z_scale)  #define scale
 ####################### SECTION 3 - 3D DISPLACEMENT MAP CREATION ####################### 
 
 #----------- load the image ----------- 
-image = bpy.data.images.load(filepath = file_path)
+image = bpy.data.images.load(filepath = images[0])
 
 
 #----------- create displacement modifier -----------
