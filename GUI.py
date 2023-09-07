@@ -18,7 +18,7 @@ class VIEW3D_PT_CUSTOM_PANEL(bpy.types.Panel):
     bl_region_type = "UI"
     bl_label = "Displacement_Map"
     bl_category = "Displacement_Map"
-    filename_ext = "*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff" #
+    filename_ext = "*.png;*.jpg;*.jpeg;*.fits;*.tif;*.tiff" #
 
     def draw(self, context):
         row = self.layout.row()
