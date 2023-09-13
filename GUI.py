@@ -1,24 +1,54 @@
 import bpy
+import sys
+import os
+import imp
+
+dir = os.path.dirname(bpy.data.filepath)
+if not dir in sys.path:
+    sys.path.append(dir)
+
 import Displacement_Map
-from bpy_extras.io_utils import ImportHelper #
+imp.reload(Displacement_Map)
+
 import Displacement_Map_split_by_channel
+imp.reload(Displacement_Map_split_by_channel)
 
 class MESH_OT_ADD_DISPLACEMENT(bpy.types.Operator):
     bl_idname = "mesh.displacement_map_add"
     bl_label = "Create 3D Displacement Map"
-    Displacement_Map.main()
+    def execute(self, context):
+        Displacement_Map.main()
 
 class MESH_OT_ADD_COLOUR_SPLIT(bpy.types.Operator):
     bl_idname = "mesh.colour_split_add"
     bl_label = "Create colour split"
-    Displacement_Map_split_by_channel.main()
+    def execute(self, context):
+        Displacement_Map_split_by_channel.main()
+
+class MESH_OT_RED(bpy.types.Operator):
+    bl_idname = "mesh.red"
+    bl_label = "Red"
+    def execute(self, context):
+        Displacement_Map_split_by_channel.colour_value("R")
+
+class MESH_OT_GREEN(bpy.types.Operator):
+    bl_idname = "mesh.green"
+    bl_label = "Green"
+    def execute(self, context):
+        Displacement_Map_split_by_channel.colour_value("G")
+
+class MESH_OT_BLUE(bpy.types.Operator):
+    bl_idname = "mesh.blue"
+    bl_label = "Blue"
+    def execute(self, context):
+        Displacement_Map_split_by_channel.colour_value("B")
 
 class VIEW3D_PT_CUSTOM_PANEL(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_label = "Displacement_Map"
-    bl_category = "Displacement_Map"
-    filename_ext = "*.png;*.jpg;*.jpeg;*.fits;*.tif;*.tiff" #
+    bl_label = "Stellar"
+    bl_category = "Stellar"
+    #filename_ext = "*.png;*.jpg;*.jpeg;*.fits;*.tif;*.tiff" #
 
     def draw(self, context):
         row = self.layout.row()
@@ -29,11 +59,20 @@ class VIEW3D_PT_CUSTOM_PANEL(bpy.types.Panel):
         
         row = self.layout.row()
         row.operator("mesh.colour_split_add", text = "Add Colour Split")
-        
-        row = layout.row() #
-        row.operator("wm.open_mainfile", text="Select Image").filepath = "" #
 
+        row = self.layout.row()
+        row.operator("mesh.red", text = "Red")
+
+        row = self.layout.row()
+        row.operator("mesh.green", text = "Green")
+
+        row = self.layout.row()
+        row.operator("mesh.blue", text = "Blue")
 
 bpy.utils.register_class(VIEW3D_PT_CUSTOM_PANEL)
 bpy.utils.register_class(MESH_OT_ADD_DISPLACEMENT)
 bpy.utils.register_class(MESH_OT_ADD_COLOUR_SPLIT)
+bpy.utils.register_class(MESH_OT_RED)
+bpy.utils.register_class(MESH_OT_GREEN)
+bpy.utils.register_class(MESH_OT_BLUE)
+
