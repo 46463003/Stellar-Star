@@ -30,18 +30,21 @@ class MESH_OT_RED(bpy.types.Operator):
     bl_label = "Red"
     def execute(self, context):
         Displacement_Map_split_by_channel.colour_value("R")
+        return {'FINISHED'}
 
 class MESH_OT_GREEN(bpy.types.Operator):
     bl_idname = "mesh.green"
     bl_label = "Green"
     def execute(self, context):
         Displacement_Map_split_by_channel.colour_value("G")
+        return {'FINISHED'}
 
 class MESH_OT_BLUE(bpy.types.Operator):
     bl_idname = "mesh.blue"
     bl_label = "Blue"
     def execute(self, context):
         Displacement_Map_split_by_channel.colour_value("B")
+        return {'FINISHED'}
 
 class VIEW3D_PT_CUSTOM_PANEL(bpy.types.Panel):
     bl_space_type = "VIEW_3D"

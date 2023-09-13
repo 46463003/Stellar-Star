@@ -42,7 +42,7 @@ def main():
     pixels = list(image.pixels)
 
     # Find the index based on the specified channel
-    if colour_value == 'R':
+    if channel_input == 'R':
         channel_idx = 0
     elif channel_input == 'G':
         channel_idx = 1
