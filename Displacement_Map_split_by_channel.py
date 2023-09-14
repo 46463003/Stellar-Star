@@ -4,7 +4,6 @@
 #----------- import libraries -----------
 import bpy  # for interacting with the viewport using Python's code
 import os   # for interacting with the operating system
-channel_input = "R"
 file_path = r"C:\Users\joshu\OneDrive\Documents\Stellar-Star\Sample_Images\1. Helix Nebula @ w = 4844.tiff"
 z_scale = 1 # scale of the z axis
 channel_input = "R" # R for Red, G for Green, and B for Blue

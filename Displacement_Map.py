@@ -9,7 +9,7 @@ import os   # for interacting with the operating system
 #----------- variable declaration -----------
 # !!!IMPORTANT: CHANGE THE FILE PATH TO THE IMAGE BEFORE RUNNING THE CODES
 # MAKE SURE THE FOLDER IS SEPARATED BY A DOUBLE BACKLASH (\\) INSTEAD OF A SINGLE ONE (\)
-images = "Stellar-Star\\Sample_Images\\1. Helix Nebula @ w = 4844.tiff" #import all images from the sample files
+images = r"C:\Users\joshu\OneDrive\Documents\Stellar-Star\Sample_Images\1. Helix Nebula @ w = 4844.tiff" #import all images from the sample files
 #size = Import_Images.get_image_size()
 pixel_length = 4944 #horizontal count of pixels
 pixel_width = 3284 # vertical count of pixels

@@ -7,44 +7,55 @@ dir = os.path.dirname(bpy.data.filepath)
 if not dir in sys.path:
     sys.path.append(dir)
 
-import Displacement_Map
-imp.reload(Displacement_Map)
+import Displacement_Map_final
+imp.reload(Displacement_Map_final)
 
 import Displacement_Map_split_by_channel
 imp.reload(Displacement_Map_split_by_channel)
+
+import Airy_Disk
+imp.reload(Airy_Disk)
 
 class MESH_OT_ADD_DISPLACEMENT(bpy.types.Operator):
     bl_idname = "mesh.displacement_map_add"
     bl_label = "Create 3D Displacement Map"
     def execute(self, context):
-        Displacement_Map.main()
+        Displacement_Map_final.main()
+        return {'FINISHED'}
 
 class MESH_OT_ADD_COLOUR_SPLIT(bpy.types.Operator):
     bl_idname = "mesh.colour_split_add"
     bl_label = "Create colour split"
     def execute(self, context):
         Displacement_Map_split_by_channel.main()
+        return {'FINISHED'}
 
 class MESH_OT_RED(bpy.types.Operator):
     bl_idname = "mesh.red"
     bl_label = "Red"
     def execute(self, context):
-        Displacement_Map_split_by_channel.colour_value("R")
+        Displacement_Map_final.colour_value("R")
         return {'FINISHED'}
 
 class MESH_OT_GREEN(bpy.types.Operator):
     bl_idname = "mesh.green"
     bl_label = "Green"
     def execute(self, context):
-        Displacement_Map_split_by_channel.colour_value("G")
+        Displacement_Map_final.colour_value("G")
         return {'FINISHED'}
 
 class MESH_OT_BLUE(bpy.types.Operator):
     bl_idname = "mesh.blue"
     bl_label = "Blue"
     def execute(self, context):
-        Displacement_Map_split_by_channel.colour_value("B")
+        Displacement_Map_final.colour_value("B")
         return {'FINISHED'}
+
+class MESH_OT_AIRY_DISK(bpy.types.Operator):
+    bl_idname = "mesh.airy_disk"
+    bl_label = "Airy_Disk"
+    def execute(self, context):
+        Airy_Disk.main()
 
 class VIEW3D_PT_CUSTOM_PANEL(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
