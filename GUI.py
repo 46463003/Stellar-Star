@@ -83,10 +83,10 @@ class VIEW3D_PT_CUSTOM_PANEL(bpy.types.Panel):
         row = self.layout.row()
         row.operator("mesh.blue", text = "Blue")
 
-bpy.utils.register_class(VIEW3D_PT_CUSTOM_PANEL)
-bpy.utils.register_class(MESH_OT_ADD_DISPLACEMENT)
-bpy.utils.register_class(MESH_OT_ADD_COLOUR_SPLIT)
-bpy.utils.register_class(MESH_OT_RED)
-bpy.utils.register_class(MESH_OT_GREEN)
-bpy.utils.register_class(MESH_OT_BLUE)
+#bpy.utils.register_class(VIEW3D_PT_CUSTOM_PANEL)
+#bpy.utils.register_class(MESH_OT_ADD_DISPLACEMENT)
+#bpy.utils.register_class(MESH_OT_ADD_COLOUR_SPLIT)
+#bpy.utils.register_class(MESH_OT_RED)
+#bpy.utils.register_class(MESH_OT_GREEN)
+#bpy.utils.register_class(MESH_OT_BLUE)
 
