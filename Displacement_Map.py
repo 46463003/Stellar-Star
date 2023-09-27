@@ -4,16 +4,28 @@
 #----------- import libraries -----------
 import bpy  # for interacting with the viewport using Python's code
 import os   # for interacting with the operating system
+import sys
+import imp
+dir = os.path.dirname(bpy.data.filepath)
+if not dir in sys.path:
+    sys.path.append(dir)
 
+import New_Image_Locate
+imp.reload(New_Image_Locate)
 
 #----------- variable declaration -----------
 # !!!IMPORTANT: CHANGE THE FILE PATH TO THE IMAGE BEFORE RUNNING THE CODES
 # MAKE SURE THE FOLDER IS SEPARATED BY A DOUBLE BACKLASH (\\) INSTEAD OF A SINGLE ONE (\)
-file_path = r"C:\Users\joshu\OneDrive\Documents\Stellar-Star\plate-solved_images\M8.TIFF"
-z_scale = 1 # scale of the z axis
-channel_input = "R" # R for Red, G for Green, and B for Blue
+#file_path = New_Image_Locate.get_path()
+#z_scale = 1 # scale of the z axis
+#channel_input = "" # R for Red, G for Green, and B for Blue
 
-def main():
+
+def main(col):
+    channel_input = col # R for Red, G for Green, and B for Blue
+    print(channel_input)
+    z_scale = 1 # scale of the z axis
+
     #----------- remove all existing objects in the 3D viewport -----------
     for obj in bpy.data.objects:
         bpy.data.objects.remove(obj)
@@ -32,7 +44,7 @@ def main():
 
     ####################### SECTION 2 - IMAGE PROCESSING ####################### 
     #----------- load the image ----------- 
-    image = bpy.data.images.load(filepath = file_path)
+    image = bpy.data.images.load(filepath = str(New_Image_Locate.get_path()))
 
     # read the lenght and width of resolution
     pixel_length = image.size[0] #horizontal count of pixels
@@ -47,11 +59,11 @@ def main():
     pixels = list(image.pixels)
 
     # Find the index based on the specified channel
-    if channel_input == 'R':
+    if channel_input == "R":
         channel_idx = 0
-    elif channel_input == 'G':
+    elif channel_input == "G":
         channel_idx = 1
-    elif channel_input == 'B':
+    elif channel_input == "B":
         channel_idx = 2
     else:
         raise ValueError("Invalid channel input")
@@ -76,7 +88,7 @@ def main():
 
 
     # flip the grid along x-axis by 180 degree
-    grid.rotation_euler[0] = 3.14159
+    #grid.rotation_euler[0] = 3.14159
 
 
 
@@ -163,11 +175,6 @@ def main():
     # Update the color_image pixels with new color changes
     color_image.pixels = color_pixels
     image_texture_node.image = color_image
-
-def colour_value(val):
-    channel_input = val
-if __name__ == "__colour_value__":
-    colour_value(channel_input)
 
 if __name__ == "__main__":
     main()

@@ -160,6 +160,15 @@ def main():
         else:
             circle.data.materials.append(AD_mat)
 
+def set_val(f, a, p, l):
+    global focal_length
+    focal_length = f # in mm
+    global aperture
+    aperture = a # in mm
+    global pixel_size
+    pixel_size = p # in micro-meters
+    global lambda_w
+    lambda_w = l
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,6 @@
 import bpy
 import os
+import sys
 
 from bpy.props import (StringProperty,
                        PointerProperty,
@@ -11,14 +12,11 @@ from bpy.types import (Panel,
                        PropertyGroup,
                        )
 location = ""
-class MyProperties(PropertyGroup):
+dir = os.path.dirname(bpy.data.filepath)
+if not dir in sys.path:
+    sys.path.append(dir)
 
-    path : StringProperty(
-        name="",
-        description="Path to Directory",
-        default="",
-        maxlen=1024,
-        subtype='DIR_PATH')
+from Property_Definition import (MyProperties)
 
 class OBJECT_PT_Folder(Panel):
     bl_space_type = "VIEW_3D"
