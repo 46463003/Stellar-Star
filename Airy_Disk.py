@@ -28,19 +28,21 @@ def get_pixel_brightness(x, y, image, channel):
     
 
 #----------- variable declaration -----------
-corr_fits = "C:/Course Materials/COMP3850/Blender/plate-solved_images/corr.fits"
-focal_length = 1000 # in mm
-aperture = 130 # in mm
-pixel_size = 0.5 # in micro-meters
-channel_input = "R" # R for Red, G for Green, and B for Blue
+corr_fits = " "#r"C:\Users\joshu\OneDrive\Documents\Stellar-Star\corr.fits"
+focal_length = 0#1000 # in mm
+aperture = 0#130 # in mm
+pixel_size = 0 #0.5 # in micro-meters
+channel_input = "" # R for Red, G for Green, and B for Blue
 no_directions = 32 # this specifies the number of directions to check for the length of saturated pixels
-lambda_w = 650 # wavelength for different color channel - in nano-meters - user-defined 650 for R, 520 for G, 450 for B
+lambda_w = 0#650 # wavelength for different color channel - in nano-meters - user-defined 650 for R, 520 for G, 450 for B
 
 def main():
+    print(corr_fits)
+    print(focal_length, aperture, pixel_size, channel_input, no_directions, lambda_w)
     # calculate the Airy Disk's radius
-    f = focal_length/aperture
-    r_mm = 2.44*lambda_w*f*10**-3 # Airy Disk radius in micro-meters
-    r_px = r_mm/pixel_size # radius in terms of number of pixels
+    f = int(focal_length)/int(aperture)
+    r_mm = 2.44*float(lambda_w)*float(f)*10**-3 # Airy Disk radius in micro-meters
+    r_px = float(r_mm)/float(pixel_size) # radius in terms of number of pixels
 
 
     #----------- import data file -----------
@@ -169,6 +171,16 @@ def set_val(f, a, p, l):
     pixel_size = p # in micro-meters
     global lambda_w
     lambda_w = l
+    #print(focal_length, aperture, pixel_size, lambda_w)
+
+def pathway(pt):
+    global corr_fits
+    corr_fits = pt
+if __name__ == "__set_val__":
+    set_val(focal_length, aperture, pixel_size, lambda_w)
+
+if __name__ == "__pathway__":
+    pathway(corr_fits)
 
 if __name__ == "__main__":
     main()

@@ -88,7 +88,7 @@ def main(col):
 
 
     # flip the grid along x-axis by 180 degree
-    #grid.rotation_euler[0] = 3.14159
+    grid.rotation_euler[0] = 3.14159
 
 
 
@@ -117,7 +117,7 @@ def main(col):
     # add an Image Texture node - this allows us to use the color of an external image as texture
     image_texture_node = nodes.new(type='ShaderNodeTexImage')
     image_texture_node.location = (-500,0)
-    image_texture_node.image = color_image # use the modified image as texture
+    image_texture_node.image = image # use the modified image as texture
 
 
     # connect the Image Texture node color to the Subsurface Scattering node color

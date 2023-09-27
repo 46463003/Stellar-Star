@@ -9,10 +9,29 @@ from bpy.types import Context
 dir = os.path.dirname(bpy.data.filepath)
 if not dir in sys.path:
     sys.path.append(dir)
-
+fits = ""
 from Property_Definition import (StellarPanel)
 import Airy_Disk
 imp.reload(Airy_Disk)
+
+class WM_OT_OpenFits(bpy.types.Operator):
+    bl_idname = "open.fits"
+    bl_label = "Select fits file"
+    filepath : bpy.props.StringProperty(subtype="DIR_PATH") 
+
+    def execute(self, context):
+        display = self.filepath 
+        global fits
+        fits = display 
+        print("path:", display)
+        Airy_Disk.pathway(fits)        
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+
+        context.window_manager.fileselect_add(self) 
+
+        return {'RUNNING_MODAL'}  
 
 class WM_OT_Airydisk(bpy.types.Operator):
     bl_label = "Create Airy Disk"
@@ -40,8 +59,24 @@ class WM_PT_AD_Panel(StellarPanel, bpy.types.Panel):
     def draw(self,context):
         layout = self.layout
         layout.label(text="This is the Airy Disk panel.")
+        layout.row()
+        layout.operator("open.fits", text = "Select fits file")
+        if get_fits():
+            layout.label(text = get_fits())
+        else:
+            layout.label(text = "No Image Selected")
+        layout.row()
         row = self.layout.row()
         row.operator("wm.airydisk", text = "Airy Disk")
 
+
+def get_fits():
+    newf = ""
+    for p in fits:
+        if p == '\\':
+            newf = newf + p + "\\"
+        else:
+            newf = newf + p
+    return str(newf)
 #bpy.utils.register_class(WM_OT_Airydisk)
 #bpy.utils.register_class(WM_PT_Main_Panel)
