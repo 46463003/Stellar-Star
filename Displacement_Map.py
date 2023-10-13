@@ -6,12 +6,15 @@ import bpy  # for interacting with the viewport using Python's code
 import os   # for interacting with the operating system
 import sys
 import imp
-dir = os.path.dirname(bpy.data.filepath)
-if not dir in sys.path:
-    sys.path.append(dir)
+import inspect
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+if cmd_folder not in sys.path:
+    sys.path.insert(0, cmd_folder)
 
 import New_Image_Locate
 imp.reload(New_Image_Locate)
+
+img = []
 
 #----------- variable declaration -----------
 # !!!IMPORTANT: CHANGE THE FILE PATH TO THE IMAGE BEFORE RUNNING THE CODES
@@ -45,6 +48,8 @@ def main(col):
     ####################### SECTION 2 - IMAGE PROCESSING ####################### 
     #----------- load the image ----------- 
     image = bpy.data.images.load(filepath = str(New_Image_Locate.get_path()))
+    global img
+    img = image
 
     # read the lenght and width of resolution
     pixel_length = image.size[0] #horizontal count of pixels
@@ -136,12 +141,12 @@ def main(col):
     bpy.context.object.active_material.preview_render_type = 'FLAT' #change preview option to Flat
 
 
-
+def id_saturated_stars():
     #######################  SECTION 5 - IDENTIFY SATURATED STARS ####################### 
     # this section relates to the colors will be used to overlay color on the grid as texture
 
     # create a copy of the input image
-    color_image = image.copy()
+    color_image = img.copy()
     color_image.name = "Color image"
 
     # update the values of color pixels

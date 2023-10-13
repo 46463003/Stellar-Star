@@ -35,6 +35,14 @@ pixel_size = 0 #0.5 # in micro-meters
 channel_input = "" # R for Red, G for Green, and B for Blue
 no_directions = 32 # this specifies the number of directions to check for the length of saturated pixels
 lambda_w = 0#650 # wavelength for different color channel - in nano-meters - user-defined 650 for R, 520 for G, 450 for B
+globgrid = ''
+
+def getDataFile():
+    #----------- import data file -----------
+    with fits.open(corr_fits) as hdul:
+        data = [list(row) for row in hdul[1].data]
+    hdul.close()
+    return data
 
 def main():
     print(corr_fits)
@@ -44,12 +52,7 @@ def main():
     r_mm = 2.44*float(lambda_w)*float(f)*10**-3 # Airy Disk radius in micro-meters
     r_px = float(r_mm)/float(pixel_size) # radius in terms of number of pixels
 
-
-    #----------- import data file -----------
-    with fits.open(corr_fits) as hdul:
-        data = [list(row) for row in hdul[1].data]
-    hdul.close()
-
+    data = getDataFile()
 
     #----------- clean all circles in the viewport -----------
     for obj in bpy.data.objects:
@@ -62,6 +65,8 @@ def main():
 
     # get the grid object
     grid = bpy.data.objects["Grid"]
+    global globgrid
+    globgrid = grid
 
     # ----------- set the scale -----------
     cell_length = (grid.scale.x * 2) / (grid.scale.x*1000)
@@ -106,9 +111,12 @@ def main():
             circle.data.materials.append(AD_mat)
 
 
-
+def drawAiryDisk():
+    data = getDataFile()
     ######################## SECTION 3 - CREATE CIRCLES AROUND SATURATED STARS ########################
-
+    grid = globgrid
+    cell_length = (grid.scale.x * 2) / (grid.scale.x*1000)
+    cell_width = (grid.scale.y * 2 )/ (grid.scale.y*1000)
     # get the image used to make the Displace effect
     img = grid.modifiers["Stellar_Displacement"].texture.image
 

@@ -2,13 +2,14 @@ import typing
 import bpy
 import sys
 import os
+import inspect
 import imp
 
 from bpy.types import Context
 
-dir = os.path.dirname(bpy.data.filepath)
-if not dir in sys.path:
-    sys.path.append(dir)
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+if cmd_folder not in sys.path:
+    sys.path.insert(0, cmd_folder)
 fits = ""
 from Property_Definition import (StellarPanel)
 import Airy_Disk
@@ -52,6 +53,9 @@ class WM_OT_Airydisk(bpy.types.Operator):
     
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self) 
+class WM_OT_Circle(StellarPanel, bpy.types.Panel):
+    bl_idname = "wm.createcircle"
+    bl_label = "Create Circle"
 
 class WM_PT_AD_Panel(StellarPanel, bpy.types.Panel):
     bl_idname = "PANEL_PT_AIRYDISK"
@@ -68,6 +72,8 @@ class WM_PT_AD_Panel(StellarPanel, bpy.types.Panel):
         layout.row()
         row = self.layout.row()
         row.operator("wm.airydisk", text = "Airy Disk")
+        layout.row
+        row.operator("wm.createcircle", text = "Create Circle")
 
 
 def get_fits():

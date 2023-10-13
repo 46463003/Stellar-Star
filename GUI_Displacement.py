@@ -2,10 +2,11 @@ import bpy
 import sys
 import os
 import imp
+import inspect
 
-dir = os.path.dirname(bpy.data.filepath)
-if not dir in sys.path:
-    sys.path.append(dir)
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+if cmd_folder not in sys.path:
+    sys.path.insert(0, cmd_folder)
 
 from Property_Definition import (StellarPanel)
 import Displacement_Map
@@ -37,6 +38,13 @@ class WM_OT_Dismap(bpy.types.Operator):
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
+class WM_OT_Id_Stars(bpy.types.Operator):
+    bl_label = "Identify Saturated Stars"
+    bl_idname = "wm.idstars"
+    def execute(self, context):
+        Displacement_Map.id_saturated_stars()   
+        return {'FINISHED'}
+
 class WM_PT_Dismap_Panel(StellarPanel, bpy.types.Panel):
     bl_idname = "PANEL_PT_DISMAP"
     bl_label = "Displacement Map"
@@ -49,6 +57,8 @@ class WM_PT_Dismap_Panel(StellarPanel, bpy.types.Panel):
             layout.label(text = New_Image_Locate.get_path())
         else:
             layout.label(text = "No Image Selected")
+        row = self.layout.row()
+        row.operator("wm.idstars", text = "ID Stars")
 
 #bpy.utils.register_class(WM_PT_Main_Panel)
 #bpy.utils.register_class(WM_OT_Dismap)
