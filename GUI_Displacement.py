@@ -41,9 +41,25 @@ class WM_OT_Dismap(bpy.types.Operator):
 class WM_OT_Id_Stars(bpy.types.Operator):
     bl_label = "Identify Saturated Stars"
     bl_idname = "wm.idstars"
+    red : bpy.props.BoolProperty(name = "Red", default = False)
+    green : bpy.props.BoolProperty(name = "Green", default = False)
+    blue : bpy.props.BoolProperty(name = "Blue", default = False)
+    
     def execute(self, context):
-        Displacement_Map.id_saturated_stars()   
+        col = ""
+        r = self.red
+        g = self.green
+        b = self.blue
+        if(r is True):
+            col = "R"
+        if(g is True):
+            col = "G"
+        if(b is True):
+            col = "B"
+        Displacement_Map.col(col)
         return {'FINISHED'}
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
 
 class WM_PT_Dismap_Panel(StellarPanel, bpy.types.Panel):
     bl_idname = "PANEL_PT_DISMAP"

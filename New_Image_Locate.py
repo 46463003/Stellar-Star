@@ -57,7 +57,3 @@ def get_path():
         else:
             newp = newp + p
     return str(newp)
-
-#bpy.utils.register_class(CUSTOM_PT_Panel)
-
-#bpy.utils.register_class(CUSTOM_OT_OpenFile)

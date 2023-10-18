@@ -1,7 +1,7 @@
 ######################## SECTION 1 - PREPARATION ########################
 #----------- import libraries -----------
 import bpy  # for interacting with the viewport using Python's code
-#from astropy.io import fits # for reading .fits file containing plate-solved results
+from astropy.io import fits # for reading .fits file containing plate-solved results
 import math # to get sin and cos function
 
 
@@ -111,12 +111,7 @@ def main():
             circle.data.materials.append(AD_mat)
 
 
-def drawAiryDisk():
-    data = getDataFile()
     ######################## SECTION 3 - CREATE CIRCLES AROUND SATURATED STARS ########################
-    grid = globgrid
-    cell_length = (grid.scale.x * 2) / (grid.scale.x*1000)
-    cell_width = (grid.scale.y * 2 )/ (grid.scale.y*1000)
     # get the image used to make the Displace effect
     img = grid.modifiers["Stellar_Displacement"].texture.image
 
@@ -184,6 +179,7 @@ def set_val(f, a, p, l):
 def pathway(pt):
     global corr_fits
     corr_fits = pt
+    
 if __name__ == "__set_val__":
     set_val(focal_length, aperture, pixel_size, lambda_w)
 
