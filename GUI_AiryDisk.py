@@ -53,9 +53,6 @@ class WM_OT_Airydisk(bpy.types.Operator):
     
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self) 
-class WM_OT_Circle(StellarPanel, bpy.types.Panel):
-    bl_idname = "wm.createcircle"
-    bl_label = "Create Circle"
 
 class WM_PT_AD_Panel(StellarPanel, bpy.types.Panel):
     bl_idname = "PANEL_PT_AIRYDISK"
@@ -72,8 +69,6 @@ class WM_PT_AD_Panel(StellarPanel, bpy.types.Panel):
         layout.row()
         row = self.layout.row()
         row.operator("wm.airydisk", text = "Airy Disk")
-        layout.row
-        row.operator("wm.createcircle", text = "Create Circle")
 
 
 def get_fits():

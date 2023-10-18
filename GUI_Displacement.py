@@ -7,7 +7,7 @@ import inspect
 cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
 if cmd_folder not in sys.path:
     sys.path.insert(0, cmd_folder)
-
+colour = ""
 from Property_Definition import (StellarPanel)
 import Displacement_Map
 imp.reload(Displacement_Map)
@@ -27,12 +27,18 @@ class WM_OT_Dismap(bpy.types.Operator):
         r = self.red
         g = self.green
         b = self.blue
+        global colour
         if(r is True):
             col = "R"
+            colour = col
         if(g is True):
             col = "G"
+            colour = col
         if(b is True):
             col = "B"
+            colour = col
+        if(r and g and b is True):
+            pass
         Displacement_Map.main(col)
         return {'FINISHED'}
     def invoke(self, context, event):
@@ -41,25 +47,10 @@ class WM_OT_Dismap(bpy.types.Operator):
 class WM_OT_Id_Stars(bpy.types.Operator):
     bl_label = "Identify Saturated Stars"
     bl_idname = "wm.idstars"
-    red : bpy.props.BoolProperty(name = "Red", default = False)
-    green : bpy.props.BoolProperty(name = "Green", default = False)
-    blue : bpy.props.BoolProperty(name = "Blue", default = False)
     
     def execute(self, context):
-        col = ""
-        r = self.red
-        g = self.green
-        b = self.blue
-        if(r is True):
-            col = "R"
-        if(g is True):
-            col = "G"
-        if(b is True):
-            col = "B"
-        Displacement_Map.col(col)
+        Displacement_Map.id_saturated_stars()
         return {'FINISHED'}
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
 
 class WM_PT_Dismap_Panel(StellarPanel, bpy.types.Panel):
     bl_idname = "PANEL_PT_DISMAP"

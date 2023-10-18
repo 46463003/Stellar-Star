@@ -15,7 +15,8 @@ import New_Image_Locate
 imp.reload(New_Image_Locate)
 
 img = []
-coll = ""
+colour = ""
+image_texture_node = []
 #----------- variable declaration -----------
 # !!!IMPORTANT: CHANGE THE FILE PATH TO THE IMAGE BEFORE RUNNING THE CODES
 # MAKE SURE THE FOLDER IS SEPARATED BY A DOUBLE BACKLASH (\\) INSTEAD OF A SINGLE ONE (\)
@@ -26,6 +27,8 @@ coll = ""
 
 def main(coll):
     channel_input = coll # R for Red, G for Green, and B for Blue
+    global colour
+    colour = coll
     print(channel_input)
     z_scale = 1 # scale of the z axis
 
@@ -62,7 +65,6 @@ def main(coll):
 
     # Create a copy of the pixel data
     pixels = list(image.pixels)
-
     # Find the index based on the specified channel
     if channel_input == "R":
         channel_idx = 0
@@ -120,10 +122,10 @@ def main(coll):
     sss_node.location = (0,0)
 
     # add an Image Texture node - this allows us to use the color of an external image as texture
+    global image_texture_node
     image_texture_node = nodes.new(type='ShaderNodeTexImage')
     image_texture_node.location = (-500,0)
     image_texture_node.image = image # use the modified image as texture
-
 
     # connect the Image Texture node color to the Subsurface Scattering node color
     material.node_tree.links.new(image_texture_node.outputs["Color"], sss_node.inputs["Color"])
@@ -141,18 +143,11 @@ def main(coll):
     bpy.context.object.active_material.preview_render_type = 'FLAT' #change preview option to Flat
 
 
-def id_saturated_stars(colour):
+def id_saturated_stars():
     #######################  SECTION 5 - IDENTIFY SATURATED STARS ####################### 
     # this section relates to the colors will be used to overlay color on the grid as texture
     channel_input = colour
-    print(colour)
-    material = bpy.data.materials.new(name = "Stellar_Material") #create new material
-    material.use_nodes = True #enable node trees to overlay color
-
-    nodes = material.node_tree.nodes
-    for node in nodes:
-        nodes.remove(node)
-    image_texture_node = nodes.new(type='ShaderNodeTexImage')
+    
     # create a copy of the input image
     color_image = img.copy()
     color_image.name = "Color image"
@@ -162,8 +157,8 @@ def id_saturated_stars(colour):
     for i in range(0, len(color_pixels), 4):
         if channel_input == 'R':
             if color_pixels[i] == 1: # Check if red channel is 1
-                color_pixels[i] = 1  # Set red to 0
-                color_pixels[i + 1] = 0 # Green
+                color_pixels[i] = 0  # Set red to 0
+                color_pixels[i + 1] = 1 # Green
                 color_pixels[i + 2] = 1 # Blue
             else:
                 color_pixels[i + 1] = 0 # Green
@@ -171,16 +166,16 @@ def id_saturated_stars(colour):
         elif channel_input == 'G':
             if color_pixels[i + 1] == 1: # Check if green channel is 1
                 color_pixels[i] = 1 # Red
-                color_pixels[i + 1] = 1  # Set green to 0
-                color_pixels[i + 2] = 0 # Blue
+                color_pixels[i + 1] = 0  # Set green to 0
+                color_pixels[i + 2] = 1 # Blue
             else:
                 color_pixels[i] = 0 # Red
                 color_pixels[i + 2] = 0 # Blue
         elif channel_input == 'B':
             if color_pixels[i + 2] == 1: # Check if blue channel is 1
-                color_pixels[i] = 0 # Red
+                color_pixels[i] = 1 # Red
                 color_pixels[i + 1] = 1 # Green
-                color_pixels[i + 2] = 1  # Set blue to 0
+                color_pixels[i + 2] = 0  # Set blue to 0
             else:
                 color_pixels[i] = 0 # Red
                 color_pixels[i + 1] = 0 # Green
@@ -188,15 +183,11 @@ def id_saturated_stars(colour):
     # Update the color_image pixels with new color changes
     color_image.pixels = color_pixels
     image_texture_node.image = color_image
+
     
 
-def col(secondcolour):
-    colour = secondcolour
-    id_saturated_stars(colour)
 
 if __name__ == "__main__":
     main(coll)
 
-if __name__ == "__col__":
-    col(colls)
 
