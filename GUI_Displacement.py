@@ -38,7 +38,7 @@ class WM_OT_Dismap(bpy.types.Operator):
             col = "B"
             colour = col
         if(r and g and b is True):
-            pass
+            Displacement_Map.allTrue()
         Displacement_Map.main(col)
         return {'FINISHED'}
     def invoke(self, context, event):

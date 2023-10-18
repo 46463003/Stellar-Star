@@ -16,7 +16,9 @@ imp.reload(New_Image_Locate)
 
 img = []
 colour = ""
+coll = ""
 image_texture_node = []
+all_true = False
 #----------- variable declaration -----------
 # !!!IMPORTANT: CHANGE THE FILE PATH TO THE IMAGE BEFORE RUNNING THE CODES
 # MAKE SURE THE FOLDER IS SEPARATED BY A DOUBLE BACKLASH (\\) INSTEAD OF A SINGLE ONE (\)
@@ -64,8 +66,11 @@ def main(coll):
     ### e.g. if Red is chosen, then the values for Green and Blue channels of every pixel will be 0
 
     # Create a copy of the pixel data
-    pixels = list(image.pixels)
+    pixels = list(image.pixels)\
+    
     # Find the index based on the specified channel
+    if all_true == True:
+        channel_input = ""
     if channel_input == "R":
         channel_idx = 0
     elif channel_input == "G":
@@ -184,7 +189,9 @@ def id_saturated_stars():
     color_image.pixels = color_pixels
     image_texture_node.image = color_image
 
-    
+def allTrue():
+    all_true = True
+    return all_true
 
 
 if __name__ == "__main__":
