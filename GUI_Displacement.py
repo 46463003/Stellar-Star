@@ -17,7 +17,6 @@ class WM_OT_Dismap(bpy.types.Operator):
     bl_label = "Create Displacement_Map"
     bl_idname = "wm.dismap"
     
-    #text : bpy.props.StringProperty(name= "Enter Text", default= "")
     red : bpy.props.BoolProperty(name = "Red", default = False)
     green : bpy.props.BoolProperty(name = "Green", default = False)
     blue : bpy.props.BoolProperty(name = "Blue", default = False)
@@ -67,6 +66,4 @@ class WM_PT_Dismap_Panel(StellarPanel, bpy.types.Panel):
         row = self.layout.row()
         row.operator("wm.idstars", text = "ID Stars")
 
-#bpy.utils.register_class(WM_PT_Main_Panel)
-#bpy.utils.register_class(WM_OT_Dismap)
 
