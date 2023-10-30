@@ -36,6 +36,7 @@ channel_input = "" # R for Red, G for Green, and B for Blue
 no_directions = 32 # this specifies the number of directions to check for the length of saturated pixels
 lambda_w = 0#650 # wavelength for different color channel - in nano-meters - user-defined 650 for R, 520 for G, 450 for B
 globgrid = ''
+col = ""
 
 def getDataFile():
     #----------- import data file -----------
@@ -180,6 +181,10 @@ def pathway(pt):
     global corr_fits
     corr_fits = pt
     
+def colour(col):
+    global channel_input
+    channel_input = col
+    print(channel_input)
 if __name__ == "__set_val__":
     set_val(focal_length, aperture, pixel_size, lambda_w)
 
@@ -188,5 +193,8 @@ if __name__ == "__pathway__":
 
 if __name__ == "__main__":
     main()
+
+if __name__ == "__colour__":
+    colour(col)
 
 

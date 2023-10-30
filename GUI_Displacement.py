@@ -12,6 +12,7 @@ from Property_Definition import (StellarPanel)
 import Displacement_Map
 imp.reload(Displacement_Map)
 import New_Image_Locate
+import Airy_Disk
 
 class WM_OT_Dismap(bpy.types.Operator):
     bl_label = "Create Displacement_Map"
@@ -39,6 +40,7 @@ class WM_OT_Dismap(bpy.types.Operator):
         if((r and g and b) is True):
             Displacement_Map.allTrue()
         Displacement_Map.main(col)
+        Airy_Disk.colour(col)
         return {'FINISHED'}
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)

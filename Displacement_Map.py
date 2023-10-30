@@ -86,7 +86,7 @@ def main(coll):
             for j in range(3):
                 if j != channel_idx:
                     pixels[i + j] = 0.0
-    print(channel_input)
+    #print(channel_input)
 
     # Iterate through the pixels in blocks of 4 (R, G, B, A)
 
