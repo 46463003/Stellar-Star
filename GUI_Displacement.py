@@ -16,7 +16,7 @@ import New_Image_Locate
 class WM_OT_Dismap(bpy.types.Operator):
     bl_label = "Create Displacement_Map"
     bl_idname = "wm.dismap"
-    
+    bl_description = "This create a 3D Displacement Map"    
     red : bpy.props.BoolProperty(name = "Red", default = False)
     green : bpy.props.BoolProperty(name = "Green", default = False)
     blue : bpy.props.BoolProperty(name = "Blue", default = False)
@@ -36,7 +36,7 @@ class WM_OT_Dismap(bpy.types.Operator):
         if(b is True):
             col = "B"
             colour = col
-        if(r and g and b is True):
+        if((r and g and b) is True):
             Displacement_Map.allTrue()
         Displacement_Map.main(col)
         return {'FINISHED'}
@@ -46,7 +46,7 @@ class WM_OT_Dismap(bpy.types.Operator):
 class WM_OT_Id_Stars(bpy.types.Operator):
     bl_label = "Identify Saturated Stars"
     bl_idname = "wm.idstars"
-    
+    bl_description = "This identifies stars that's outside chosen wavelength"
     def execute(self, context):
         Displacement_Map.id_saturated_stars()
         return {'FINISHED'}

@@ -31,7 +31,6 @@ def main(coll):
     channel_input = coll # R for Red, G for Green, and B for Blue
     global colour
     colour = coll
-    print(channel_input)
     z_scale = 1 # scale of the z axis
 
     #----------- remove all existing objects in the 3D viewport -----------
@@ -66,26 +65,31 @@ def main(coll):
     ### e.g. if Red is chosen, then the values for Green and Blue channels of every pixel will be 0
 
     # Create a copy of the pixel data
-    pixels = list(image.pixels)\
+    pixels = list(image.pixels)
     
     # Find the index based on the specified channel
+    print(all_true)
     if all_true == True:
         channel_input = ""
-    if channel_input == "R":
-        channel_idx = 0
-    elif channel_input == "G":
-        channel_idx = 1
-    elif channel_input == "B":
-        channel_idx = 2
     else:
-        raise ValueError("Invalid channel input")
+        if channel_input == "R":
+            channel_idx = 0
+        elif channel_input == "G":
+            channel_idx = 1
+        elif channel_input == "B":
+            channel_idx = 2
+        else:
+            raise ValueError("Invalid channel input")
+        
+        for i in range(0, len(pixels), 4):
+        # If it's not the chosen channel, set its value to 0
+            for j in range(3):
+                if j != channel_idx:
+                    pixels[i + j] = 0.0
+    print(channel_input)
 
     # Iterate through the pixels in blocks of 4 (R, G, B, A)
-    for i in range(0, len(pixels), 4):
-        # If it's not the chosen channel, set its value to 0
-        for j in range(3):
-            if j != channel_idx:
-                pixels[i + j] = 0.0
+
 
 
     # Update the image pixels
@@ -190,6 +194,7 @@ def id_saturated_stars():
     image_texture_node.image = color_image
 
 def allTrue():
+    global all_true
     all_true = True
     return all_true
 
@@ -197,4 +202,6 @@ def allTrue():
 if __name__ == "__main__":
     main(coll)
 
+if __name__ == "__main__":
+    allTrue()
 

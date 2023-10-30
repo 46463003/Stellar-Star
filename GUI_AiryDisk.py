@@ -18,6 +18,7 @@ imp.reload(Airy_Disk)
 class WM_OT_OpenFits(bpy.types.Operator):
     bl_idname = "open.fits"
     bl_label = "Select fits file"
+    bl_description = "Select the fits file to run the Airy Disk"
     filepath : bpy.props.StringProperty(subtype="DIR_PATH") 
 
     def execute(self, context):
@@ -37,6 +38,7 @@ class WM_OT_OpenFits(bpy.types.Operator):
 class WM_OT_Airydisk(bpy.types.Operator):
     bl_label = "Create Airy Disk"
     bl_idname = "wm.airydisk"
+    bl_description = "Generates a hollow circle around stars"
     focal_lenght : bpy.props.StringProperty(name = "Focal Length", default = "")
     aperture : bpy.props.StringProperty(name = "Aperture", default = "")
     pixel_size : bpy.props.StringProperty(name = "Pixel Size", default = "")
@@ -79,5 +81,3 @@ def get_fits():
         else:
             newf = newf + p
     return str(newf)
-#bpy.utils.register_class(WM_OT_Airydisk)
-#bpy.utils.register_class(WM_PT_Main_Panel)

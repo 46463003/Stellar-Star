@@ -13,6 +13,8 @@ from Property_Definition import (StellarPanel)
 class CUSTOM_OT_OpenFile(bpy.types.Operator):
     bl_idname = "open.file"
     bl_label = "Select Image"
+    bl_description = "Select the images that you want to use. Must be TIFF image"
+
     filepath : bpy.props.StringProperty(subtype="DIR_PATH") 
     #somewhere to remember the address of the file
 
@@ -20,13 +22,10 @@ class CUSTOM_OT_OpenFile(bpy.types.Operator):
         display = self.filepath 
         global path
         path = display 
-        print("path:", display) #Prints to console  
-        print(get_path())
-        #Window>>>Toggle systen console
 
         return {'FINISHED'}
 
-    def invoke(self, context, event): # See comments at end  [1]
+    def invoke(self, context, event):
 
         context.window_manager.fileselect_add(self) 
         #Open browser, take reference to 'self' 
@@ -39,7 +38,6 @@ class CUSTOM_OT_OpenFile(bpy.types.Operator):
 class CUSTOM_PT_Panel(StellarPanel, bpy.types.Panel):
     bl_idname = "IMAGESELECT_PT_PANEL"
     bl_label = "Select Image Panel"
-
     def draw(self, context):
         layout = self.layout
         layout.row()
