@@ -1,7 +1,7 @@
 ######################## SECTION 1 - PREPARATION ########################
 #----------- import libraries -----------
 import bpy  # for interacting with the viewport using Python's code
-#from astropy.io import fits # for reading .fits file containing plate-solved results
+from astropy.io import fits # for reading .fits file containing plate-solved results
 import math # to get sin and cos function
 
 
