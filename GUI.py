@@ -2,11 +2,11 @@ import bpy
 import sys
 import os
 import imp
+import inspect
 
-dir = os.path.dirname(bpy.data.filepath)
-if not dir in sys.path:
-    sys.path.append(dir)
-
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+if cmd_folder not in sys.path:
+    sys.path.insert(0, cmd_folder)
 
 bl_info = {
     "name" : "Stellar Star",
@@ -17,11 +17,10 @@ bl_info = {
     "location" : "View3D > UI panel > Stellar",
     "categroy" : "Object"
 }
+
 from New_Image_Locate import (CUSTOM_OT_OpenFile, CUSTOM_PT_Panel)
 from GUI_Displacement import (WM_OT_Dismap, WM_PT_Dismap_Panel, WM_OT_Id_Stars)
 from GUI_AiryDisk import (WM_OT_Airydisk, WM_PT_AD_Panel, WM_OT_OpenFits)
-
-
 
 classes = (
     CUSTOM_OT_OpenFile,
