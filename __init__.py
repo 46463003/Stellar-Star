@@ -21,7 +21,7 @@ if cmd_folder not in sys.path:
 
 
 from New_Image_Locate import (CUSTOM_OT_OpenFile, CUSTOM_PT_Panel)
-from GUI_Displacement import (WM_OT_Dismap, WM_PT_Dismap_Panel, WM_OT_Id_Stars)
+from GUI_Displacement import (WM_OT_Dismap, WM_PT_Dismap_Panel, WM_OT_Id_Stars) 
 from GUI_AiryDisk import (WM_OT_Airydisk, WM_PT_AD_Panel, WM_OT_OpenFits)
 
 classes = (

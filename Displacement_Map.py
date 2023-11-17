@@ -164,30 +164,36 @@ def id_saturated_stars():
     # update the values of color pixels
     color_pixels = list(color_image.pixels)
     for i in range(0, len(color_pixels), 4):
-        if channel_input == 'R':
-            if color_pixels[i] == 1: # Check if red channel is 1
-                color_pixels[i] = 0  # Set red to 0
-                color_pixels[i + 1] = 1 # Green
-                color_pixels[i + 2] = 1 # Blue
-            else:
-                color_pixels[i + 1] = 0 # Green
-                color_pixels[i + 2] = 0 # Blue
-        elif channel_input == 'G':
-            if color_pixels[i + 1] == 1: # Check if green channel is 1
+        if all_true is True:
+            if color_pixels[i + 1] == 1:
                 color_pixels[i] = 1 # Red
                 color_pixels[i + 1] = 0  # Set green to 0
                 color_pixels[i + 2] = 1 # Blue
-            else:
-                color_pixels[i] = 0 # Red
-                color_pixels[i + 2] = 0 # Blue
-        elif channel_input == 'B':
-            if color_pixels[i + 2] == 1: # Check if blue channel is 1
-                color_pixels[i] = 1 # Red
-                color_pixels[i + 1] = 1 # Green
-                color_pixels[i + 2] = 0  # Set blue to 0
-            else:
-                color_pixels[i] = 0 # Red
-                color_pixels[i + 1] = 0 # Green
+        else:
+            if channel_input == 'R':
+                if color_pixels[i] == 1: # Check if red channel is 1
+                    color_pixels[i] = 0  # Set red to 0
+                    color_pixels[i + 1] = 1 # Green
+                    color_pixels[i + 2] = 1 # Blue
+                else:
+                    color_pixels[i + 1] = 0 # Green
+                    color_pixels[i + 2] = 0 # Blue
+            elif channel_input == 'G':
+                if color_pixels[i + 1] == 1: # Check if green channel is 1
+                    color_pixels[i] = 1 # Red
+                    color_pixels[i + 1] = 0  # Set green to 0
+                    color_pixels[i + 2] = 1 # Blue
+                else:
+                    color_pixels[i] = 0 # Red
+                    color_pixels[i + 2] = 0 # Blue
+            elif channel_input == 'B':
+                if color_pixels[i + 2] == 1: # Check if blue channel is 1
+                    color_pixels[i] = 1 # Red
+                    color_pixels[i + 1] = 1 # Green
+                    color_pixels[i + 2] = 0  # Set blue to 0
+                else:
+                    color_pixels[i] = 0 # Red
+                    color_pixels[i + 1] = 0 # Green
 
     # Update the color_image pixels with new color changes
     color_image.pixels = color_pixels
