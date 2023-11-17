@@ -166,9 +166,9 @@ def id_saturated_stars():
     for i in range(0, len(color_pixels), 4):
         if all_true is True:
             if color_pixels[i + 1] == 1:
-                color_pixels[i] = 1 # Red
-                color_pixels[i + 1] = 0  # Set green to 0
-                color_pixels[i + 2] = 1 # Blue
+                color_pixels[i] = 0 # Red
+                color_pixels[i + 1] = 1  # Set green to 0
+                color_pixels[i + 2] = 0 # Blue
         else:
             if channel_input == 'R':
                 if color_pixels[i] == 1: # Check if red channel is 1
