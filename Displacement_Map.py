@@ -1,4 +1,3 @@
-
 ####################### SECTION 1 - PREPARATION ####################### 
 
 #----------- import libraries -----------
@@ -56,7 +55,7 @@ def main(coll):
     img = image
 
     # read the lenght and width of resolution
-    pixel_length = image.size[0] #horizontal count of pixels
+    pixel_length = image.size[0] # horizontal count of pixels
     pixel_width = image.size[1] # vertical count of pixels
 
 
@@ -68,7 +67,6 @@ def main(coll):
     pixels = list(image.pixels)
     
     # Find the index based on the specified channel
-    print(all_true)
     if all_true == True:
         channel_input = ""
     else:
@@ -87,10 +85,6 @@ def main(coll):
                 if j != channel_idx:
                     pixels[i + j] = 0.0
     #print(channel_input)
-
-    # Iterate through the pixels in blocks of 4 (R, G, B, A)
-
-
 
     # Update the image pixels
     image.pixels = pixels
@@ -199,11 +193,10 @@ def id_saturated_stars():
     color_image.pixels = color_pixels
     image_texture_node.image = color_image
 
-def allTrue():
+def allTrue(true_false):
     global all_true
-    all_true = True
+    all_true = true_false
     return all_true
-
 
 if __name__ == "__main__":
     main(coll)

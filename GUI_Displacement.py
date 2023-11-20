@@ -38,7 +38,9 @@ class WM_OT_Dismap(bpy.types.Operator):
             col = "B"
             colour = col
         if((r and g and b) is True):
-            Displacement_Map.allTrue()
+            Displacement_Map.allTrue(True)
+        else:
+            Displacement_Map.allTrue(False)
         Displacement_Map.main(col)
         Airy_Disk.colour(col)
         return {'FINISHED'}
